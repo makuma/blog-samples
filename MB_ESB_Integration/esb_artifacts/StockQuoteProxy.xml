@@ -1,0 +1,15 @@
+<proxy xmlns="http://ws.apache.org/ns/synapse" name="StockQuoteProxy" transports="https,http" statistics="disable" trace="disable" startOnLoad="true">
+  <target>
+     <inSequence>
+        <property name="OUT_ONLY" value="true"/>
+        <property name="FORCE_SC_ACCEPTED" value="true" scope="axis2"/>
+        <log level="FULL"/>
+        <send>
+           <endpoint>
+              <address uri="jms:/StockQuotesQueue?transport.jms.ConnectionFactoryJNDIName=QueueConnectionFactory&amp;java.naming.factory.initial=org.wso2.andes.jndi.PropertiesFileInitialContextFactory&amp;java.naming.provider.url=repository/conf/jndi.properties&amp;transport.jms.DestinationType=queue"/>
+           </endpoint>
+        </send>
+     </inSequence>
+  </target>
+  <description></description>
+</proxy>
